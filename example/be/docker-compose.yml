@@ -1,0 +1,9 @@
+services:
+  rpr_be_simple:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    volumes:
+      - ${PWD}/data:/data
+    ports:
+      - "9999:9999"
