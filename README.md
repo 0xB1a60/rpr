@@ -270,6 +270,7 @@ ex:
     "type": "full_sync",
     "collection_name": "collection_ABC",
     "version": 1692013118,
+    "revision": 1,
     "values": [{
         "id": "1EwArGOcrPf3jxifIMFyx",
         "version": 1692013118,
@@ -321,6 +322,17 @@ ex.
   
     // optional, array of item ids that the Client has no longer access to
     "removed_ids": item id array
+}
+```
+
+ex.
+
+```json5
+{
+    "revision": 2,
+    "removed_ids": [
+      "1EwArGOcrPf3jxifIMFyx",
+    ]
 }
 ```
 
