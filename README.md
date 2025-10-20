@@ -1,6 +1,4 @@
-*The main differences between the original [RPR](https://github.com/0xB1a60/rpr) and RPRv2 are that in v2, WebSocket (WS) is replaced with Server-Sent Events (SSE), resulting in a simplified communication protocol. Additionally, the issue of inaccessible data, which previously had to remain in the server database indefinitely, is now resolved. RPRv2 is recommended due to its streamlined simplicity and lower server storage requirements*
-
-# Realtime Persistent Replication 2 - RPRv2
+# Realtime Persistent Replication - RPR
 Offline-first Realtime Persistent Replication Protocol
 
 ### Legend
@@ -16,8 +14,8 @@ Offline-first Realtime Persistent Replication Protocol
 - Offline support is absent in most HTTP fetch-based applications, resulting in a poor Client experience with even minor connection drops
 
 ## Proposal
-- Instead of making tens or hundreds of fetch calls, RPRv2 employs a single HTTP SSE connection for background syncing, delivering the latest changes seamlessly and eliminating the 'stale data' issue
-- To fully utilize RPRv2, web applications can employ IndexedDB, while mobile/desktop applications can use SQLite for persistent storage
+- Instead of making tens or hundreds of fetch calls, RPR employs a single HTTP SSE connection for background syncing, delivering the latest changes seamlessly and eliminating the 'stale data' issue
+- To fully utilize RPR, web applications can employ IndexedDB, while mobile/desktop applications can use SQLite for persistent storage
 - Offline support is inherently provided as data is persistently stored on the Client
 - Client engineers are relieved of concerns about API versions, paging, and spinners (except in mutation calls), enabling them to focus on UX development
 - The Server can prioritize data transmission (e.g., user details over notifications)
@@ -31,9 +29,9 @@ Offline-first Realtime Persistent Replication Protocol
 - Syncing can be disconnected at any time from both Server and Client, and the Client is expected to handle this gracefully. For instance, if the Server sends two _partial_sync_ followed by a _full_sync_, and the connection is lost after receiving the two _partial_sync_ messages, the Server will resend the items from those two _partial_sync_ messages upon reconnection
 - The Server may send the same items that the Client already has. The Client should handle this gracefully. For instance, if a Client successfully syncs and a few _change_ events arrive, the same changes will be sent again as _values_ and/or _removed_ids_ in the next sync request
 - _full_sync_ is always sent, even when both _values_ and _removed_ids_ are null. This allows the Client to track the _version_
-- Property names from RPRv2 follow snake_case
+- Property names from RPR follow snake_case
 - Communication between Client and Server is in JSON
-- RPRv2 is language-agnostic, not tied to any specific database or programming language
+- RPR is language-agnostic, not tied to any specific database or programming language
 
 ### Keeping track of data access
 The logic for _removed_ids_ depends on a static record that tracks whether the Client currently has access or has lost access and when such changes occurred, 
